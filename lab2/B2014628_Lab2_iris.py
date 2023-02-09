@@ -2,6 +2,7 @@
 
 from sklearn.datasets import load_iris
 iris_dt = load_iris()
+print(len(iris_dt))
 iris_dt.data[1:5]
 iris_dt.target[1:5]
 

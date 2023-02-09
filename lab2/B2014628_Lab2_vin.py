@@ -1,8 +1,9 @@
 #KNN
 
 from sklearn.datasets import load_wine
-import numpy as np
 wine_dt = load_wine()
+
+
 wine_dt.data[1:13]
 wine_dt.target[1:13]
 
@@ -16,6 +17,7 @@ y_train[1:6]
 X_test[6:10]
 y_test[6:10]
 
+print(X_test);
 #Mo hinh KNN
 from sklearn.neighbors import KNeighborsClassifier
 Mohinh_KNN = KNeighborsClassifier(n_neighbors=7)
@@ -43,6 +45,10 @@ import pandas as pd
 dulieu = pd.read_csv("winequality-red.csv",delimiter=';')
 x = dulieu.iloc[:,0:13]
 y= dulieu.quality
+print("So luong phan tu: ",len(x))
+import numpy as np
+print("Cac gia tri khac nhau cua bien: ",np.unique(y))
+print("So luong va gia tri khac nhau cua bien:\n ",y.value_counts())
 
 #Phan chia du lieu thanh tap test va train (mo hinh Gaussian)
 from sklearn.model_selection import train_test_split
