@@ -2,7 +2,7 @@
 
 from sklearn.datasets import load_iris
 iris_dt = load_iris()
-print(len(iris_dt))
+
 iris_dt.data[1:5]
 iris_dt.target[1:5]
 
@@ -42,7 +42,6 @@ import pandas as pd
 dulieu = pd.read_csv("iris_data.csv")
 x = dulieu.iloc[:,0:4]
 y= dulieu.nhan
-
 #Phan chia du lieu thanh tap test va train (mo hinh Gaussian)
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x,y, test_size=0.3,random_state=0)
