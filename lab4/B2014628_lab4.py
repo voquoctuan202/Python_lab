@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #Câu 1: Nhập 2 mảng
-x = np.array([150,147,150,153,158, 163, 165, 168, 170, 173, 175, 178, 180, 183])
-y = np.array([90, 49, 50, 51, 54, 58, 59, 60, 62, 63, 64, 66, 67, 68])
+x = np.array([147,150,153,158, 163, 165, 168, 170, 173, 175, 178, 180, 183])
+y = np.array([49, 50, 51, 54, 58, 59, 60, 62, 63, 64, 66, 67, 68])
 
 #Vẽ đồ thị biểu diễn tập dữ liệu
 plt.axis([0,185,0,95])
@@ -31,15 +31,12 @@ def LR1(x,y,eta,lanlap,theta0,theta1):
 
 
 #Vẽ đường hồi quy: cần phải giảm tốc độ học
-theta = LR1(x,y,0.00001,1,0,1)
+theta = LR1(x,y,0.00002,3,0,1)
 X1= np.array([1,200])
 Y1= theta[0] + theta[1]*X1
-theta2 = LR1(x,y,0.00001,1,0,1)
-X2= np.array([1,200])
-Y2= theta2[0] + theta2[1]*X2
 
 plt.axis([0,185,0,95])
-plt.plot(x,y,'ro',color="blue")
+plt.plot(x,y,'o',color="blue")
 
 print("X1: ",X1,"Y1: ",Y1)
 plt.title("Biểu đồ thể hiện đường hồi quy trên tập dữ liệu")
