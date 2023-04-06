@@ -2,16 +2,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #Câu 1: Nhập 2 mảng
-x = np.array([147,150,153,158, 163, 165, 168, 170, 173, 175, 178, 180, 183])
-y = np.array([49, 50, 51, 54, 58, 59, 60, 62, 63, 64, 66, 67, 68])
+#Dữ liệu ban đầu
+x = np.array([150,147,150,153,158, 163, 165, 168, 170, 173, 175, 178, 180, 183])
+y = np.array([90,49, 50, 51, 54, 58, 59, 60, 62, 63, 64, 66, 67, 68])
+
+#Dữ liệu sao khi bỏ nhiễu và chuẩn hóa
+x = np.array([80.32,81.967,83.606,86.338, 89.071, 90.163, 90.803, 92.896, 94.535, 95.628, 97.267, 98.360, 100])
+y = np.array([72.058, 73.529, 75, 79.411, 85.294, 86.764, 88.235, 91.176, 92.647, 94.117, 97.058, 98.529, 100])
+
 
 #Vẽ đồ thị biểu diễn tập dữ liệu
-plt.axis([0,185,0,95])
-plt.title("Biểu đồ thể hiện tập dữ liệu")
+plt.axis([0,110,0,110])
+plt.title("Biểu đồ thể hiện tập dữ liệu đã chuẩn hóa")
 plt.plot(x,y,'o',color="blue")
 plt.xlabel("Gia tri thuoc tinh X")
 plt.ylabel("Gia tri du doan Y")
 plt.show()
+
 
 #xây dựng hàm tính theta
 def LR1(x,y,eta,lanlap,theta0,theta1):
@@ -22,20 +29,19 @@ def LR1(x,y,eta,lanlap,theta0,theta1):
             h_i= theta0 + theta1*x[i]
             #theta0
             theta0 = theta0 + eta*(y[i]-h_i)*1
-            print("Phan tu ", i,"y=",y[i], "h=",h_i,"gia tri theta0 = ",round(theta0,3))
+            print("Phan tu ", i,"y=",y[i], "h=",h_i,"gia tri theta0 = ",round(theta0,10))
             #theta1
-            theta1=   theta1+ eta*(y[i]-h_i)*x[i]
+            theta1= theta1+ eta*(y[i]-h_i)*x[i]
             print ("Phan tu ", i, "gia tri cua theta1 =",round(theta1,3))
     return [round(theta0,3),round(theta1,3)]
 
-
-
 #Vẽ đường hồi quy: cần phải giảm tốc độ học
-theta = LR1(x,y,0.00002,3,0,1)
+theta = LR1(x,y,0.00002,2,0,1)
+print("Theta0: ",theta[0],"Theta1: ",theta[1])
 X1= np.array([1,200])
 Y1= theta[0] + theta[1]*X1
 
-plt.axis([0,185,0,95])
+plt.axis([0,110,0,110])
 plt.plot(x,y,'o',color="blue")
 
 print("X1: ",X1,"Y1: ",Y1)
@@ -62,6 +68,7 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(dt.iloc[:,1:5],dt.iloc[:,0], test_size=1/3.0,random_state=5)
 
 from sklearn.metrics import mean_squared_error
+#Sử dụng phương pháp tập hợp mô hình
 from sklearn.ensemble import BaggingRegressor
 from sklearn import linear_model
 lm = linear_model.LinearRegression()
@@ -71,8 +78,8 @@ y_pred= bagging_reg.predict(X_test)
 err= mean_squared_error(y_test,y_pred)
 
 #Đánh giá với 2 chỉ số MSE và RMSE
-print("MSE= ",err)
-print("RMSE= ",np.sqrt(err))
+print("MSE= ",err ) #252429398
+print("RMSE= ",np.sqrt(err)) # 15888
 
 
 
@@ -87,7 +94,8 @@ Y= list(data.Do_cang)
 #Biểu đồ thể hiện mối liên hệ
 plt.axis([0,30,0,60])
 plt.title("Biểu đồ thể hiện mối liên hệ của gỗ cứng và độ căng")
-plt.plot(X,Y,color="violet")
+plt.scatter(X,Y)
+#Dữ liệu không tương quan
 plt.show()
 
 #Công thức liên hệ
@@ -128,7 +136,7 @@ print("Classification Report:",)
 print (result1)
 result2 = accuracy_score(y_test,y_pred)
 #Độ chính xác tổng thể
-print("Accuracy:", round(result2,3))
+print("Accuracy:", round(result2,3)) #0.696
 
 #Cau 5: Nhập dữ liệu rượu vang
 import pandas as pd
@@ -145,7 +153,6 @@ kf= KFold(n_splits=Fold_n,shuffle=True)
 from sklearn.ensemble import AdaBoostClassifier
 # Import Support Vector Classifier
 from sklearn.svm import SVC
-#Import scikit-learn metrics module for accuracy calculation
 svc=SVC(probability=True, kernel='linear')
 
 # Create adaboost classifer object
@@ -171,4 +178,4 @@ for train_index, test_index in kf.split(X,Y):
 
     Fold_index = Fold_index+1
     print("=================================================================")
-print("Accuracy AVG:", round(Sum_AS/Fold_n,3))
+print("Accuracy AVG:", round(Sum_AS/Fold_n,3)) #43.151%
